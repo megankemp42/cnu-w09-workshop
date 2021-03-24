@@ -1,8 +1,12 @@
+import numpy as np
+import types
+import numbers.Number
+
 # Task 1
 
 a = 8
 b = 8
-c = 2.
+c = 2.0
 
 assert a == b, 'a should be equal to b.'
 assert a % c == 0, 'a should be a multiple of c.'
@@ -19,6 +23,12 @@ def bisection(F, a, b, tol):
     Finds the root of F in the interval [a, b] using
     the bisection method, to within an error of tol.
     '''
+    assert isinstance(f, types.FunctionType), 'F should be a function'
+    assert isinstance(a, Number), 'a should be a number'
+    assert isinstance(b, Number), 'b should be a number'
+    assert a < b, 'a should be less than b'
+    assert isinstance(tol, Number), 'tol should be a number'
+    assert tol > 0, 'tol should be greater than zero'
     # Iteration count
     its = 0
 
@@ -40,3 +50,9 @@ def bisection(F, a, b, tol):
     
     # Return the root and the number of iterations
     return c, its
+
+def f(x):
+    return np.sin(x) + 1
+
+bisection(f, f, 0.5, 1e-8)
+
